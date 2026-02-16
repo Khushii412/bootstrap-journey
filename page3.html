@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>interactice UI</title>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <!-- alerts -->
+    <div class="container mt-4 bg-secondary p-4">
+       <div class="alert alert-success">
+        <p>this is success alert</p>
+       </div>
+       <div class="alert alert-danger">
+        this is danger alert
+       </div>
+       <div class="alert alert-warning fade  show alert-dismissible">
+        this alert can be closed
+        <button type="button" class="btn btn-close" data-bs-dismiss="alert" ></button>
+       </div>
+    </div>
+
+    <!-- modal/ pop up window -->
+     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">open modal
+     </button>
+     <!-- modal structrure -->
+     <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">My modal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <div class="modal-body">
+                        this is content for modal body
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">close</button>
+                        <button type="button" class="btn btn-primary">
+                            save changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+<!-- flex utilities -->
+<div class="d-flex justify-content-around bg-light p-3">
+    <div>item 1</div>
+    <div>item 2</div>
+    <div>item 3</div>
+</div> 
+
+</body>
+</html>
