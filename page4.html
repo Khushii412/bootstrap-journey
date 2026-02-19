@@ -1,0 +1,176 @@
+<!-- 
+ 1. this page is a login-modal i.e. login form in a modal not a separate html page
+ 2. it login btn -> appears modal conatins login form
+ 3. store login data in local storage i.e. system storage
+ 4. use the stored data to verify if already logged in
+ 5. if verify already logged in? login button disappear and logout appears. 
+ 6. on clicking logout , local storage data deletes , and login btn reappears. 
+ 7. check login data valid or not (not take invalid entries) show error message. 
+ 8. password show/hide toggle
+ 9. successful login alert .  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 4(login modal)</title>
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body h-100vh class="d-flex align-items-center justify-content-center">
+    <button class="btn btn-primary mt-4 p-3 btn-lg d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#myModal" id="loginBtn">Login</button>
+    <div class="m-4 text-center bg-secondary p-4 d-none"  id="welcomeBox">
+                        <h1>Hello, <span id="userName"> 👋</span></h5>
+
+                        <button class="btn btn-danger btn-lg mt-3" onclick="logout()">Logout</button>
+                    </div>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Login-modal</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    
+                </div>
+                <div class="modal-body">
+                    <form class="needs-validation" novalidate id="loginForm">
+                    
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" required>
+                            <div class="invalid-feedback">please, enter a valid email</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control mb-3" required minlength="6" id="passwordField" required >
+                            <button class="btn btn-outline-secondary" type="button" id="toggleBtn">
+      <i class="bi bi-eye"></i>
+    </button>
+                            <div class="invalid-feedback">must containe atleast 6 digit</div>
+                        </div>
+                        <div class="mb-3">
+                            <button class="btn btn-primary w-100" type="submit" data>submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- <script>
+        (()=>{
+            'use strict'
+            const forms = document.querySelectorAll('.needs-validation')
+            Array.from(forms).forEach(form =>{
+                form.addEventListener('submit', event =>{
+                    if(!form.checkValidity())
+                {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+                }, false)
+            })
+        })
+        ()
+
+        function togglePass()
+        {
+            const pas = document.getElementById('passwordField');
+            pas.type = pas.type === "password" ? "text" : "password";
+            const tb = document.getElementById('toggleBtn');
+            tb.addEventListener("click", event =>{
+                pas.type = pas.type === "password" ? "text" : "password";
+                tb.firstElementChild.classList.toggle("bi-eye");
+                tb.firstElementChild.classList.toggle("bi-eye-slash");
+            }) 
+
+        };
+        togglePass();
+
+        function fakeLogin(event)
+        {
+            event.preventDefault();
+            const email = document.querySelector('input[type="email"]').value;
+            const pass = document.querySelector('input[type="password"]').value;
+            if(email === "admin@123" && pass === "123456")
+        {
+            alert("login successful");
+        }
+        else {
+            alert("invalid login details");
+        }
+        return false;
+        }
+    </script> -->
+      <script>
+    (() => {
+    'use strict'
+
+  const form = document.getElementById('loginForm')
+
+  form.addEventListener('submit', function(event) {
+
+    if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+    } else {
+      event.preventDefault()
+
+      const email = form.querySelector('input[type="email"]').value
+      const pass = form.querySelector('#passwordField').value
+
+      if (email === "admin@123" && pass === "123456")
+       {
+        localStorage.setItem("isLoggedIn", true);
+        localStorage.setItem("userEmail", email);
+        alert("Login Successful")
+        const modal = bootstrap.Modal.getInstance(document.getElementById('myModal'))
+        modal.hide()
+      } else {
+        alert("Invalid Login Details")
+      }
+    }
+
+    form.classList.add('was-validated')
+  }, false)
+
+})()
+
+
+// Password toggle
+const pas = document.getElementById('passwordField')
+const tb = document.getElementById('toggleBtn')
+
+tb.addEventListener("click", function() {
+  pas.type = pas.type === "password" ? "text" : "password"
+  tb.firstElementChild.classList.toggle("bi-eye")
+  tb.firstElementChild.classList.toggle("bi-eye-slash")
+})
+
+window.addEventListener("DOMContentLoaded", function(){
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const usereEmail = localStorage.getItem('userEmail');
+    if(isLoggedIn === "true")
+{
+    document.getElementById('loginBtn').classList.add("d-none");
+    document.getElementById('welcomeBox').classList.remove("d-none");
+    document.getElementById('userName').textContent = userEmail;
+}
+
+})
+
+function logout(){
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userEmail");
+    location.reload();
+}
+</script>
+
+
+
+</body>
+</html>
